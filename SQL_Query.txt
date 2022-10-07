@@ -333,3 +333,77 @@ Insert into Activities values (‘FBC’,’Forbidden City’,’Sightseeing’,
 Insert into Activities values (‘BZOO’,’Beijing Zoo’,’Entertainment’,’Xicheng’);
 Insert into Activities values(‘’NSVL’,’Nanshan Ski Village’,’Shopping’,Henanzhai Town’);
 Insert into Activities values(‘’BNS’,’Beijing National Stadium’,’Entertainment’,’Chaoyang’);
+
+# Divija S booking has been finalized, Display her Email_ID to send the confirmation. 
+Select Email 
+From Customer 
+Where CName = ‘Divija S’ ;
+
+# Count the number of flights travelling to Sydney. 
+Select count(*) 
+From Airplane 
+Where AirportName like "Sydney%";
+
+# Our Employee is issuing a ticket for Meetansh G, we need their Passport Expiry to finish the process. Display Meetansh G’s Passport Expiry. 
+Select ct.ExpDate 
+From CTravelDetails ct,Customer c
+natural join customer 
+Where c.Cust_ID = ct.Cust_ID AND c.CName = ‘Meetansh G’ ; 
+
+# Identify the FlightNo and Airport Name that a given customer(Joel J) is traveling to. 
+Select a.AirportName,a.FlightNo 
+From Airplane a 
+Where a.FlightNo IN ( Select p.FlightNo 
+                      From PackFly p  
+                      Where p.P_ID IN 
+                      (Select b.P_ID 
+                       From Booking b, Package a                      
+                       Where b.P_ID =p.P_ID and b.Cust_ID IN 
+                       (Select c.Cust_ID 
+                        From Customer c 
+                        Where c.Cust_ID= b.Cust_ID AND CName='Joel J'and CName is not NULL)));
+
+# Given Package Name is  BEIJING Family Package  and Destination is BEIJING , identify the hotel/(s) that is allocated for this package.
+Select h.H_Name 
+From Hotel h, Package p 
+Where h.H_ID = p.H_ID AND  p.P_Name = ‘BEIJING Family Package’ and p.Destination = ‘BEIJING’ ;
+
+# Identify the Hotel name that Rakshan is allocated
+Select h.H_Name
+From Hotel h 
+Where h.H_ID IN (Select p.H_ID 
+                 From Package p 
+                 Where p.H_ID=h.H_ID AND p.P_ID  IN 
+                 (Select b.P_ID
+                  From Booking b 
+                  Where b.P_ID = p.P_ID AND b.Cust_ID  IN
+                  (Select c.Cust_ID
+                   From Customer c 
+                   Where c.Cust_ID = b.Cust_ID and c.CName=’Rakshan F’)));
+
+# Procedure to display all activities for a given package
+DELIMITER $$
+         Create procedure ActPack(In p_id varchar(50))
+         Begin
+         Select a.A_Name 
+         From Activities a , Pack_Act p
+         Where a.A_ID = p.A_ID and p.P_ID=p_id;
+		 END; $$
+DELIMITER ;  
+call ActPack('DXBCDG2');
+
+# Procedure to display price that a given customer has to pay: 
+DELIMITER //
+         Create procedure DispPrice(In cname varchar(50))
+         Begin
+         Select b.Book_ID,b.Price 
+         From Booking b, Customer c
+         Where b.Cust_ID = c.Cust_ID and c.CName=cname;
+         End; //
+DELIMITER ;
+call DispPrice('Joel J');    
+
+# Trigger to calculate Price for the booking the customer has made
+Create trigger calcPrice after insert on Booking
+For each row
+Set NEW.Price = (select (NEW.Price * NEW.No_Of_Ppl));

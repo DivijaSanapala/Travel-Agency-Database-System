@@ -8,7 +8,7 @@ This Database System is for a Travel Agency System called ‘Travel Agency’ lo
 
 Our Database provides Packages to a Customer based on the location they wish to travel to. Packages come with multiple hotels for a destination. We also provide an option of Activities that a Customer can choose ranging from sightseeing to entertainment.
 
-The Entity Sets we have started off with is Customer - contains personal and contact details of a customer, Customer Travel Details - contains a customer’s passport details, Booking- contains booking id, start and end date of the travel booking required and the price of it, Package- contains details about the package such as package id , Airplane- contains information about flight details, such as FlightNo, departure time, etc, Hotel- contains information about the hotel where the customer will be staying and Activity- contains information about the activities provided in the package in the rquired destination.
+The Entity Sets we have started off with is Customer - contains personal and contact details of a customer, Customer Travel Details - contains a customer’s passport details, Booking- contains booking id, start and end date of the travel booking required and the price of it, Package- contains details about the package such as package id,name, destination and number of days , Airplane- contains information about flight details, such as FlightNo, departure time, etc, Hotel- contains information about the hotel where the customer will be staying and Activity- contains information about the activities provided in the package in the rquired destination.
 
 # Conceptual Design - ER Diagram:
 

@@ -4,7 +4,7 @@ This is a database project based on the topic Travel Agency System. This repo co
 
 ## Specifications:
 
-This Database System is for a Travel Agency System called ‘Travel Agency’ located in the United Arab Emirates. For this We require a Customer’s Personal Details as well as their Travel Details to be entered into our system. When a Customer decides on which Package they want to avail, a Booking is made for them.
+This Database System is for a Travel Agency System called ‘Travel Agency’ located in the United Arab Emirates. For this we require a Customer’s Personal Details as well as their Travel Details to be entered into our system. When a Customer decides on which Package they want to avail, a Booking is made for them.
 
 Our Database provides Packages to a Customer based on the location they wish to travel to. Packages come with multiple hotels for a destination. We also provide an option of Activities that a Customer can choose ranging from sightseeing to entertainment.
 
